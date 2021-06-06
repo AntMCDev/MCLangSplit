@@ -79,7 +79,7 @@ public abstract class MixinClientLanguageMap {
         }
 
         for (String s : map1.keySet()) {
-            map.put(s, map1.get(s) + (map2.containsKey(s) && !map1.get(s).equals(map2.get(s)) ? " " + map2.get(s) : ""));
+            map.put(s, map1.get(s) + (!ConfigHandler.COMMON.ignoreKeys.get().contains(s) && map2.containsKey(s) && !map1.get(s).equals(map2.get(s)) ? " " + map2.get(s) : ""));
         }
 
         Constructor<?> constructor = ObfuscationReflectionHelper.findConstructor(ClientLanguageMap.class, Map.class, Boolean.TYPE);
