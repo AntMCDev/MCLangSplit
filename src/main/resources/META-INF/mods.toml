@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="All rights reserved"
+[[mods]]
+modId="mclangsplit"
+version="${file.jarVersion}"
+displayName="MC LangSplit"
+logoFile="mclangsplit.png"
+credits="Me"
+authors="Ant"
+description='''
+This mod adds a second language to all tooltips (where available)
+'''
+[[dependencies.examplemod]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.examplemod]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"
