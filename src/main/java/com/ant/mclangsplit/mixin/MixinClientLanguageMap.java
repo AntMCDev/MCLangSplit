@@ -31,10 +31,10 @@ import java.util.stream.Stream;
 
 @Mixin(ClientLanguageMap.class)
 public abstract class MixinClientLanguageMap {
-    @Inject(at = @At("HEAD"), method="loadFrom", cancellable = true)
+    @Inject(at = @At("RETURN"), method="loadFrom", cancellable = true)
     private static void loadFrom(IResourceManager p_239497_0_, List<Language> p_239497_1_, CallbackInfoReturnable cir) {
         Map<String, String> map = Maps.newHashMap();
-        Map<String, String> map1 = Maps.newHashMap();
+        Map<String, String> map1 = ((ClientLanguageMap)cir.getReturnValue()).getLanguageData();
         Map<String, String> map2 = Maps.newHashMap();
         boolean flag = false;
 
