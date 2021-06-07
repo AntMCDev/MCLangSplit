@@ -22,9 +22,7 @@ public class ConfigHandler {
         public Common(ForgeConfigSpec.Builder builder) {
             builder.push("Language Settings");
             languageSetting = builder.comment("Set this to the second language").define("secondlanguage", "");
-            List<String> defaultIgnoreKeys = new ArrayList<>();
-            defaultIgnoreKeys.add("options.on.composed");
-            ignoreKeys = builder.comment("Use this to ignore a set of language keys for dual translation").define("ignoreKeys", defaultIgnoreKeys);
+            ignoreKeys = builder.comment("Use this to ignore a set of language keys for dual translation").define("ignoreKeys", new ArrayList<>());
             builder.pop();
         }
     }

@@ -26,12 +26,18 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 @Mixin(ClientLanguageMap.class)
 public abstract class MixinClientLanguageMap {
+    private static final List<String> IGNORE_DUAL_TRANSLATION_KEYS = new ArrayList<>();
+    static {
+        IGNORE_DUAL_TRANSLATION_KEYS.add("translation.test.invalid");
+        IGNORE_DUAL_TRANSLATION_KEYS.add("translation.test.invalid2");
+        IGNORE_DUAL_TRANSLATION_KEYS.add("options.on.composed");
+        IGNORE_DUAL_TRANSLATION_KEYS.add("options.off.composed");
+    }
+
     @Inject(at = @At("RETURN"), method="loadFrom", cancellable = true)
     private static void loadFrom(IResourceManager p_239497_0_, List<Language> p_239497_1_, CallbackInfoReturnable cir) {
         Map<String, String> map = Maps.newHashMap();
@@ -81,7 +87,7 @@ public abstract class MixinClientLanguageMap {
 
         for (String s : map1.keySet()) {
             String str = map1.get(s);
-            if (!ConfigHandler.COMMON.ignoreKeys.get().contains(s) && map2.containsKey(s) && !specialEquals(map1.get(s), map2.get(s))) {
+            if (!ConfigHandler.COMMON.ignoreKeys.get().contains(s) && !IGNORE_DUAL_TRANSLATION_KEYS.contains(s) && map2.containsKey(s) && !specialEquals(map1.get(s), map2.get(s))) {
                 String s1 = map2.get(s);
                 if (s1.contains("%s") || s1.contains("$s")) {
                     int i = 1;
@@ -99,7 +105,11 @@ public abstract class MixinClientLanguageMap {
                     i = 0;
                     while (s1.contains("%s")) {
                         int index = s1.indexOf("%s");
-                        s1 = s1.substring(0, index) + mappingList.get(i++) + s1.substring(index + 2);
+                        try {
+                            s1 = s1.substring(0, index) + mappingList.get(i++) + s1.substring(index + 2);
+                        } catch (IndexOutOfBoundsException ex) {
+                            MCLangSplit.LOGGER.error(ex.getMessage() + "; " + str + " " + s1);
+                        }
                     }
                 }
                 str += " " + s1;
