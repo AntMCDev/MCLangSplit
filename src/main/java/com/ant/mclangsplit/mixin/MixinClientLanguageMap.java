@@ -25,8 +25,9 @@ import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 @Mixin(ClientLanguageMap.class)
@@ -79,7 +80,31 @@ public abstract class MixinClientLanguageMap {
         }
 
         for (String s : map1.keySet()) {
-            map.put(s, map1.get(s) + (!ConfigHandler.COMMON.ignoreKeys.get().contains(s) && map2.containsKey(s) && !map1.get(s).equals(map2.get(s)) ? " " + map2.get(s) : ""));
+            String str = map1.get(s);
+            if (!ConfigHandler.COMMON.ignoreKeys.get().contains(s) && map2.containsKey(s) && !specialEquals(map1.get(s), map2.get(s))) {
+                String s1 = map2.get(s);
+                if (s1.contains("%s") || s1.contains("$s")) {
+                    int i = 1;
+                    String tmp = str;
+                    while (tmp.contains("%s")) {
+                        int tmpi = tmp.indexOf("%s");
+                        tmp = tmp.substring(0, tmpi) + "%" + i++ + "$s" + tmp.substring(tmpi + 2);
+                    }
+                    List<String> mappingList = new ArrayList<>();
+                    while (tmp.contains("$s")) {
+                        int tmpi = tmp.indexOf("$s");
+                        mappingList.add(tmp.substring(tmpi-2, tmpi+2));
+                        tmp = tmp.substring(tmpi+2);
+                    }
+                    i = 0;
+                    while (s1.contains("%s")) {
+                        int index = s1.indexOf("%s");
+                        s1 = s1.substring(0, index) + mappingList.get(i++) + s1.substring(index + 2);
+                    }
+                }
+                str += " " + s1;
+            }
+            map.put(s, str);
         }
 
         Constructor<?> constructor = ObfuscationReflectionHelper.findConstructor(ClientLanguageMap.class, Map.class, Boolean.TYPE);
@@ -121,5 +146,19 @@ public abstract class MixinClientLanguageMap {
 
         });
         return ImmutableMap.copyOf(map);
+    }
+
+    private static final Map<String, String> SPECIAL_REPLACE = new HashMap<>();
+    static {
+        SPECIAL_REPLACE.put("\uFF1A", ": ");
+    }
+
+    private static boolean specialEquals(String s1, String s2) {
+        for (String s : SPECIAL_REPLACE.keySet()) {
+            String sr = SPECIAL_REPLACE.get(s);
+            s1 = s1.replace(s, sr);
+            s2 = s2.replace(s, sr);
+        }
+        return s1.equals(s2);
     }
 }
