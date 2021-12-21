@@ -7,9 +7,13 @@
   "mixins": [
   ],
   "client": [
-    "MixinClientLanguageMap",
-    "MixinWidget",
-    "MixinKeyBindingListKeyEntry"
+    "MixinScreen",
+    "MixinClientLanguage",
+    "MixinAbstractWidget",
+    "MixinControlListAccessor",
+    "MixinControlListKeyEntry",
+    "MixinTranslatableComponent",
+    "MixinTranslatableComponentAccessor"
   ],
   "server": [
   ],
