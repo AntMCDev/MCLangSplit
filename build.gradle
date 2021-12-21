@@ -1,13 +1,12 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
         mavenCentral()
         maven { url = 'https://dist.creeper.host/Sponge/maven' }
         maven { url = 'https://repo.spongepowered.org/maven' }
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
@@ -20,15 +19,15 @@ mixin {
     add sourceSets.main, "mclangsplit.refmap.json"
 }
 
-version = '1.4'
+version = '2.0'
 group = 'com.ant.mclangsplit'
 archivesBaseName = 'mclangsplit'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    mappings channel: 'official', version: '1.16.5'
+    mappings channel: 'official', version: '1.17.1'
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
@@ -78,8 +77,8 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.0.42'
-    annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
+    minecraft 'net.minecraftforge:forge:1.17.1-37.1.1'
+    annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
 }
 
 jar {
