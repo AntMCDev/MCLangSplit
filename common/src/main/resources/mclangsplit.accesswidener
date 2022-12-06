@@ -1,0 +1,5 @@
+accessWidener v2 named
+accessible field net/minecraft/client/gui/screens/controls/KeyBindsList keyBindsScreen Lnet/minecraft/client/gui/screens/controls/KeyBindsScreen;
+accessible field net/minecraft/client/gui/screens/controls/KeyBindsList maxNameWidth I
+
+accessible field net/minecraft/client/KeyMapping clickCount I

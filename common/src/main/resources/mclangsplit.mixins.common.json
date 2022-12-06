@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.ant.mclangsplit.common.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+    "MixinTranslatableContents",
+    "MixinTranslatableContentsAccessor",
+    "MixinReloadableResourceManager",
+    "MixinAbstractWidget",
+    "MixinKeyBindsListKeyEntry",
+    "MixinScreen"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

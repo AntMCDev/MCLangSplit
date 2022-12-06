@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "mclangsplit",
+  "version": "${version}",
+
+  "name": "MC Langsplit Fabric",
+  "description": "A client-side dual language mod",
+  "authors": [
+    "Ant"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/mclangsplit-fabric",
+    "sources": "https://github.com/AntMCDev/MCLangsplitFabric"
+  },
+
+  "license": "MIT",
+  "icon": "assets/mclangsplit/icon.png",
+  "accessWidener": "mclangsplit.accesswidener",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.ant.mclangsplit.fabric.MCLangSplit"
+    ],
+    "modmenu": [
+      "com.ant.mclangsplit.fabric.config.LangSplitModMenu"
+    ]
+  },
+  "mixins": [
+    "mclangsplit.mixins.common.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric": "*",
+    "minecraft": "~1.19",
+    "java": ">=17"
+  },
+  "suggests": {
+    "cloth-config": ">=8.2.88",
+    "modmenu" : ">=4.0.6"
+  }
+}

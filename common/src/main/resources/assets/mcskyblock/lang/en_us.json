@@ -1,0 +1,7 @@
+{
+  "config.mclangsplit.title"                                                     : "MC LangSplit Settings",
+  "config.mclangsplit.description"                                               : "...",
+
+  "config.mclangsplit.category.default"                                          : "Presets",
+  "config.mclangsplit.option.default.LANGUAGE"                                   : "Language"
+}
