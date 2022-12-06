@@ -1,1 +1,0 @@
-MixinConnector: com.ant.mclangsplit.MixinConnector

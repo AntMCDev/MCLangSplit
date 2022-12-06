@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[43,)"
+license="MIT"
+issueTrackerURL="https://github.com/AntMCDev/MCLangsplitFabric/issues"
+
+[[mods]]
+modId="mclangsplit"
+version="${version}"
+displayName="MC Langsplit"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/mclangsplit"
+logoFile="icon.png"
+authors="AntMcDev"
+description='''
+A client-side dual language mod
+'''
+
+[[dependencies.mclangsplit]]
+   modId="forge"
+   mandatory=true
+   versionRange="[43,)"
+   ordering="NONE"
+   side="BOTH"
+
+[[dependencies.mclangsplit]]
+   modId="minecraft"
+   mandatory=true
+   versionRange="[1.19.2,)"
+   ordering="NONE"
+   side="BOTH"
