@@ -19,7 +19,7 @@ loom {
 
 configurations {
     common
-    shadowCommon //ERRR 
+    shadowCommon
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
     developmentForge.extendsFrom common
