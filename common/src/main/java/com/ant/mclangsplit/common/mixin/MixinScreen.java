@@ -13,14 +13,16 @@ import java.util.List;
 
 @Mixin(Screen.class)
 public class MixinScreen {
-    @Inject(at = @At("HEAD"), method = "getTooltipFromItem", cancellable = true)
+    @Inject(at = @At("RETURN"), method = "getTooltipFromItem", cancellable = true)
     public void getTooltipFromItem(ItemStack itemStack, CallbackInfoReturnable<List<Component>> cir) {
         List<Component> result = cir.getReturnValue();
-        for (Component c : result) {
-            if (c instanceof TranslatableContents tc) {
-                ((MixinTranslatableContentsAccessor)tc).setKey("TOOLTIP"+tc.getKey());
+        if (result != null) {
+            for (Component c : result) {
+                if (c instanceof TranslatableContents tc) {
+                    ((MixinTranslatableContentsAccessor) tc).setKey("TOOLTIP" + tc.getKey());
+                }
             }
+            cir.setReturnValue(result);
         }
-        cir.setReturnValue(result);
     }
 }
