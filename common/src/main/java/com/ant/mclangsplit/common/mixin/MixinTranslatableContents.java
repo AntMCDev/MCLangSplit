@@ -75,22 +75,26 @@ public abstract class MixinTranslatableContents {
         List<FormattedText> list = new ArrayList<>();
         switch (Config.INSTANCE.mode) {
             case ORIGINAL -> list = decompose(defaultLanguage);
-            case ALTERNATE -> list = decompose(secondLanguage);
+            case ALTERNATE -> {
+                list = secondLanguage.has(this.key) ? decompose(secondLanguage) : decompose(defaultLanguage);
+            }
             case BOTH -> {
-                Object[] tmp = new Object[args.length*2];
-                System.arraycopy(args, 0, tmp, 0, args.length);
-                System.arraycopy(args, 0, tmp, args.length, args.length);
-                args = tmp;
-
                 list = decompose(defaultLanguage);
-                List<FormattedText> secondary = decompose(secondLanguage);
-                boolean match = list.size() == secondary.size();
-                for (int i = 0; i < list.size() && match; i++) {
-                    match = list.get(i).getString().equals(secondary.get(i).getString());
-                }
-                if (!match) {
-                    list.add(FormattedText.of(" "));
-                    list.addAll(secondary);
+                if (secondLanguage.has(this.key)) {
+                    Object[] tmp = new Object[args.length*2];
+                    System.arraycopy(args, 0, tmp, 0, args.length);
+                    System.arraycopy(args, 0, tmp, args.length, args.length);
+                    args = tmp;
+
+                    List<FormattedText> secondary = decompose(secondLanguage);
+                    boolean match = list.size() == secondary.size();
+                    for (int i = 0; i < list.size() && match; i++) {
+                        match = list.get(i).getString().equals(secondary.get(i).getString());
+                    }
+                    if (!match) {
+                        list.add(FormattedText.of(" "));
+                        list.addAll(secondary);
+                    }
                 }
             }
         }

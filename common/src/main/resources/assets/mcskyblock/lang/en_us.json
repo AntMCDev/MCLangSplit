@@ -1,7 +1,11 @@
 {
-  "config.mclangsplit.title"                                                     : "MC LangSplit Settings",
-  "config.mclangsplit.description"                                               : "...",
+  "config.mclangsplit.title"                         : "MC LangSplit Settings",
+  "config.mclangsplit.description"                   : "",
 
-  "config.mclangsplit.category.default"                                          : "Presets",
-  "config.mclangsplit.option.default.LANGUAGE"                                   : "Language"
+  "config.mclangsplit.category.default"              : "Configuration",
+  "config.mclangsplit.option.default.language"       : "Language",
+  "config.mclangsplit.option.default.ignoreKeys"     : "Ignore Keys",
+  "config.mclangsplit.option.default.includeKeys"    : "Include Keys",
+  "config.mclangsplit.option.default.ignoreTooltips" : "Ignore Tooltips",
+  "config.mclangsplit.option.default.mode"           : "Mode"
 }
