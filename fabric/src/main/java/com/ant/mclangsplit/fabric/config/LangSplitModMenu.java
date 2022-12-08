@@ -1,14 +1,15 @@
 package com.ant.mclangsplit.fabric.config;
 
-//import com.terraformersmc.modmenu.api.ConfigScreenFactory;
-//import com.terraformersmc.modmenu.api.ModMenuApi;
+import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 
 @Environment(EnvType.CLIENT)
-public class LangSplitModMenu {// implements ModMenuApi {
-    //@Override
-    //public ConfigScreenFactory<?> getModConfigScreenFactory() {
-    //    return screen -> ClothConfig.getBuilder(FabricLoader.getInstance().getConfigDir()).setParentScreen(screen).build();
-    //}
+public class LangSplitModMenu implements ModMenuApi {
+    @Override
+    public ConfigScreenFactory<?> getModConfigScreenFactory() {
+        return screen -> ClothConfig.getBuilder(FabricLoader.getInstance().getConfigDir()).setParentScreen(screen).build();
+    }
 }
