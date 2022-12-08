@@ -45,6 +45,7 @@ public abstract class MixinTranslatableContents {
 
     @Shadow
     private Language decomposedWith;
+    private Language decomposedWith2;
 
     @Shadow
     private List<FormattedText> decomposedParts;
@@ -56,10 +57,11 @@ public abstract class MixinTranslatableContents {
     private void decompose(CallbackInfo ci) {
         Language defaultLanguage = Language.getInstance();
         Language secondLanguage = Storage.secondLanguage;
-        if (defaultLanguage == this.decomposedWith && this.mode == Config.INSTANCE.mode) {
+        if (defaultLanguage == this.decomposedWith && secondLanguage == this.decomposedWith2 && this.mode == Config.INSTANCE.mode) {
             return;
         }
         this.decomposedWith = defaultLanguage;
+        this.decomposedWith2 = secondLanguage;
         this.mode = Config.INSTANCE.mode;
 
         boolean isTooltip = this.key.startsWith("TOOLTIP");
