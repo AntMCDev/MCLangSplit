@@ -7,5 +7,8 @@
   "config.mclangsplit.option.default.ignoreKeys"     : "Ignore Keys",
   "config.mclangsplit.option.default.includeKeys"    : "Include Keys",
   "config.mclangsplit.option.default.ignoreTooltips" : "Ignore Tooltips",
-  "config.mclangsplit.option.default.mode"           : "Mode"
+  "config.mclangsplit.option.default.mode"           : "Mode",
+
+  "category.mclangsplit"                             : "MC LangSplit",
+  "key.mclangsplit.toggle"                           : "Toggle Language Mode"
 }

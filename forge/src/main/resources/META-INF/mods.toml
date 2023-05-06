@@ -1,7 +1,7 @@
 modLoader="javafml"
-loaderVersion="[44,)"
+loaderVersion="[45,)"
 license="MIT"
-issueTrackerURL="https://github.com/AntMCDev/MCLangsplitFabric/issues"
+issueTrackerURL="https://github.com/AntMCDev/MCLangsplit/issues"
 
 [[mods]]
 modId="mclangsplit"
@@ -17,13 +17,13 @@ A client-side dual language mod
 [[dependencies.mclangsplit]]
    modId="forge"
    mandatory=true
-   versionRange="[44,)"
+   versionRange="[45,)"
    ordering="NONE"
    side="BOTH"
 
 [[dependencies.mclangsplit]]
    modId="minecraft"
    mandatory=true
-   versionRange="[1.19.3,)"
+   versionRange="[1.19.4,1.20)"
    ordering="NONE"
    side="BOTH"
