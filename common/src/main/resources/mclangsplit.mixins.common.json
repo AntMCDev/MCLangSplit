@@ -6,10 +6,10 @@
   "mixins": [
   ],
   "client": [
+    "MixinAbstractWidget",
     "MixinTranslatableContents",
     "MixinTranslatableContentsAccessor",
     "MixinReloadableResourceManager",
-    "MixinAbstractWidget",
     "MixinKeyBindsListKeyEntry",
     "MixinScreen"
   ],

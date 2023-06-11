@@ -1,6 +1,7 @@
 package com.ant.mclangsplit.common.config;
 
 import com.ant.mclangsplit.common.MCLangSplit;
+import com.ant.mclangsplit.common.translation.Storage;
 import com.google.gson.*;
 
 import java.io.*;
@@ -22,6 +23,8 @@ public class ConfigFileAccessor {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        if (Storage.secondLanguage != null) { Storage.load(); }
     }
 
     public static void load() {

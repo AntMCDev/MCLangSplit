@@ -80,7 +80,10 @@ public class ClothConfig {
                 } else {
                     return entryBuilder.startIntField(fieldComponent, val).setDefaultValue(val).setSaveConsumer(v -> { try { field.setInt(obj, v); } catch (IllegalAccessException ignored) { } } ).setMin(intData.min).setMax(intData.max).build();
                 }
-            } else if (field.getType().isArray() && String.class.isAssignableFrom(field.getType().getComponentType())) {
+            } else if (String.class.isAssignableFrom(field.getType())) {
+                String val = (String)field.get(obj);
+                return entryBuilder.startStrField(fieldComponent, val).setDefaultValue(val).setSaveConsumer(v -> { try { field.set(obj, v); } catch (IllegalAccessException ignored) { } } ).build();
+            }  else if (field.getType().isArray() && String.class.isAssignableFrom(field.getType().getComponentType())) {
                 List<String> val = Arrays.stream(((String[])field.get(obj))).toList();
                 return entryBuilder.startStrList(fieldComponent, val).setDefaultValue(val).setSaveConsumer(v -> { try { field.set(obj, v.toArray(new String[0])); } catch (IllegalAccessException ignored) { } } ).build();
             } else if (field.getType().isEnum()) {

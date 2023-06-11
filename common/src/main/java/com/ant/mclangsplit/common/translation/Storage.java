@@ -22,13 +22,14 @@ public class Storage {
     public static void load() {
         Minecraft.getInstance().getResourceManager().listPacks().forEach(p -> {
             try {
-                LanguageMetadataSection m = p.getMetadataSection(LanguageMetadataSection.SERIALIZER);
+                LanguageMetadataSection m = p.getMetadataSection(LanguageMetadataSection.TYPE);
                 if (m != null) {
-                    m.getLanguages().forEach(l -> {
-                        if (l.getCode().equals(Config.INSTANCE.language)) {
+                    m.languages().keySet().forEach(l -> {
+                        if (l.equals(Config.INSTANCE.language)) {
                             Storage.secondLanguage = ClientLanguage.loadFrom(
                                     Minecraft.getInstance().getResourceManager(),
-                                    Collections.singletonList(l)
+                                    Collections.singletonList(l),
+                                    m.languages().get(l).bidirectional()
                             );
                         }
                     });

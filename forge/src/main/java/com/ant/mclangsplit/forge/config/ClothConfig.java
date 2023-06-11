@@ -24,7 +24,6 @@ import java.util.Optional;
  * [COMMON] CONFIG GUI - This is the ClothConfig-specific GUI wrapper around the generic Config class
  */
 public class ClothConfig {
-    private static Config prev = null;
     public static ConfigBuilder getBuilder() {
 
         ConfigBuilder builder = ConfigBuilder.create()
@@ -34,17 +33,9 @@ public class ClothConfig {
                 .transparentBackground();
         builder.setGlobalized(false);
         builder.setGlobalizedExpanded(false);
-        builder.setSavingRunnable(() -> {
-            prev.preset = Config.INSTANCE.preset;
-            if (!Arrays.equals(prev.toBytes(), Config.INSTANCE.toBytes())) {
-                Config.INSTANCE.preset = Config.Preset.Custom;
-            }
-            ConfigFileAccessor.save();
-            PacketHandler.INSTANCE.sendToServer(PacketHandler.CONFIG_PACKET.getIdentifier(), Config.INSTANCE.toBytes());
-        });
+        builder.setSavingRunnable(ConfigFileAccessor::save);
 
         ConfigFileAccessor.load();
-        prev = Config.INSTANCE.fromBytes(Config.INSTANCE.toBytes());
 
         ConfigCategory defaultCategory = builder.getOrCreateCategory(Component.translatable("config." + MCLangSplit.MOD_NAME + ".category.default"));
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
@@ -88,6 +79,9 @@ public class ClothConfig {
                 } else {
                     return entryBuilder.startIntField(fieldComponent, val).setDefaultValue(val).setSaveConsumer(v -> { try { field.setInt(obj, v); } catch (IllegalAccessException ignored) { } } ).setMin(intData.min).setMax(intData.max).build();
                 }
+            } else if (String.class.isAssignableFrom(field.getType())) {
+                String val = (String)field.get(obj);
+                return entryBuilder.startStrField(fieldComponent, val).setDefaultValue(val).setSaveConsumer(v -> { try { field.set(obj, v); } catch (IllegalAccessException ignored) { } } ).build();
             } else if (field.getType().isArray() && String.class.isAssignableFrom(field.getType().getComponentType())) {
                 List<String> val = Arrays.stream(((String[])field.get(obj))).toList();
                 return entryBuilder.startStrList(fieldComponent, val).setDefaultValue(val).setSaveConsumer(v -> { try { field.set(obj, v.toArray(new String[0])); } catch (IllegalAccessException ignored) { } } ).build();
